@@ -41,7 +41,7 @@ class EntityEditFormBlock extends BlockBase {
   protected function blockAccess(AccountInterface $account) {
     return \Drupal::entityManager()
       ->getAccessControlHandler($this->configuration['entity_type'])
-      ->createAccess($this->configuration['bundle'], $account, []);
+      ->createAccess($this->configuration['bundle'], $account, [], TRUE);
   }
 
   /**
