@@ -52,11 +52,9 @@ class EntityFormBlockTest extends WebTestBase {
     $this->drupalLogin($admin_user);
 
     // Add a content block with an entity form.
-    $this->drupalGet('admin/structure/block');
-    $this->clickLink(t('Entity form'));
+    $this->drupalGet('admin/structure/block/add/entityform_block/classy', ['query' => ['region' => 'content']]);
     $edit = array(
       'settings[entity_type_bundle]' => 'node.article',
-      'region' => 'content',
     );
     $this->drupalPostForm(NULL, $edit, t('Save block'));
 
@@ -77,11 +75,9 @@ class EntityFormBlockTest extends WebTestBase {
     $this->drupalPostForm(NULL, $edit, t('Save'));
 
     // Add a form block for creating tags.
-    $this->drupalGet('admin/structure/block');
-    $this->clickLink(t('Entity form'));
+    $this->drupalGet('admin/structure/block/add/entityform_block/classy', ['query' => ['region' => 'content']]);
     $edit = array(
       'settings[entity_type_bundle]' => 'taxonomy_term.vocabulary_tags',
-      'region' => 'content',
     );
     $this->drupalPostForm(NULL, $edit, t('Save block'));
 
@@ -92,11 +88,9 @@ class EntityFormBlockTest extends WebTestBase {
     $this->assertField('description[0][value]');
 
     // Add a form block for users.
-    $this->drupalGet('admin/structure/block');
-    $this->clickLink(t('Entity form'));
+    $this->drupalGet('admin/structure/block/add/entityform_block/classy', ['query' => ['region' => 'content']]);
     $edit = array(
       'settings[entity_type_bundle]' => 'user.user',
-      'region' => 'content',
     );
     $this->drupalPostForm(NULL, $edit, t('Save block'));
 
