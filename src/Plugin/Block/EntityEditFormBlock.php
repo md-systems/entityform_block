@@ -57,12 +57,17 @@ class EntityEditFormBlock extends BlockBase {
     $options = array();
     foreach ($content_entity_types as $type_key => $type_label) {
       // Entities that do not declare a form class.
-      if (!\Drupal::entityManager()->getDefinition($type_key)->hasFormClasses()) {
+      // Exclude Comment entities as they have to be attached to another entity.
+      if (!\Drupal::entityManager()->getDefinition($type_key)->hasFormClasses() || $type_key == 'comment') {
         continue;
       }
       // Get all bundles for current entity type.
       $entity_type_bundles = \Drupal::entityManager()->getBundleInfo($type_key);
       foreach ($entity_type_bundles as $bundle_key => $bundle_info) {
+        // Personal contact form requires a user recipient to be specified.
+        if ($bundle_key == 'personal' && $type_key == 'contact_message') {
+          continue;
+        }
         $options[$type_label][$type_key . '.' . $bundle_key] = $bundle_info['label'];
       }
     }

@@ -29,7 +29,9 @@ class EntityFormBlockTest extends WebTestBase {
     'node',
     'block',
     'entityform_block',
-    'taxonomy'
+    'taxonomy',
+    'comment',
+    'contact'
   );
 
   /**
@@ -53,6 +55,11 @@ class EntityFormBlockTest extends WebTestBase {
 
     // Add a content block with an entity form.
     $this->drupalGet('admin/structure/block/add/entityform_block/classy', ['query' => ['region' => 'content']]);
+
+    // Assert that comments and personal form bundles are not displayed.
+    $this->assertNoOption('edit-settings-entity-type-bundle', 'comment.comment');
+    $this->assertNoOption('edit-settings-entity-type-bundle', 'contact_message.personal');
+
     $edit = array(
       'settings[entity_type_bundle]' => 'node.article',
     );
